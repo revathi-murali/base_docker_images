@@ -14,3 +14,9 @@ make base.alpine.build
 ```
 make ruby.alpine.build
 ```
+
+## For building golang-alpine base image
+
+```
+make golang.alpine.build
+```
