@@ -27,7 +27,7 @@ if [ "$tag" = "" ]; then
   echo "Please specify one of the tags ${supported_versions} for $lang"
 fi
 
-find ./"$ALPINE_VERSION"/"$lang" -name "Dockerfile-$lang$tag" -type f | egrep ".*"
+find ./"$lang" -name "Dockerfile-$lang$tag" -type f | egrep ".*"
 
 if ! [ "$?" == 0 ]; then
   echo "TAG $tag is not supported for $lang alpine image, exiting..."
@@ -36,7 +36,7 @@ fi
 
 docker_label="$upcase_lang"_ALPINE_DOCKER_LABEL
 docker_tag="$tag-alpine$ALPINE_VERSION"
-dockerfile="$ALPINE_VERSION/$lang/Dockerfile-$lang$tag"
+dockerfile="$lang/Dockerfile-$lang$tag"
 echo "Building image with tag - ${!docker_label}:$docker_tag"
 
 docker build --no-cache \

@@ -8,16 +8,16 @@ This directory contains steps to create alpine base docker images that can be us
 make base.alpine.build tag=<supported alpine version>
 
 ```
-Note: If the tag is not specified, it builds the image for alpine 3.9
 
-## For building ruby-alpine base image
-
-```
-make ruby.alpine.build tag=<supported ruby version>
-```
-
-## For building golang-alpine base image
+## For building ruby-alpine3.9 base image
 
 ```
-make golang.alpine.build tag=<supported golang version>
+cd 3.9 && make ruby.alpine.build tag=<supported ruby version>
 ```
+
+## For building golang-alpine3.9 base image
+
+```
+cd 3.9 && make golang.alpine.build tag=<supported golang version> 
+```
+
