@@ -1,60 +1,33 @@
 SRCROOT := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
-include $(SRCROOT)/versions.mk
+TAG=$(tag)
+BUILD_SCRIPT_PATH=$(SRCROOT)/build_image.sh
 
-ALPINE_VERSION = 3.9
-
-TAG=$(if $(tag),$(tag),"default")
-
-BASE_ALPINE_DOCKER_LABEL = aws/alpine#TBD
-BASE_ALPINE_DOCKER_TAG = $(ALPINE_VERSION)
-
-RUBY_ALPINE_DOCKER_LABEL = aws/ruby#TBD
-RUBY_ALPINE_DOCKER_TAG = $(RUBY_VERSION)-alpine$(ALPINE_VERSION)
-
-GOLANG_ALPINE_DOCKER_LABEL = aws/golang#TBD
-GOLANG_ALPINE_DOCKER_TAG = $(GOLANG_VERSION)-alpine$(ALPINE_VERSION)
-
-PYTHON_ALPINE_DOCKER_LABEL = aws/python#TBD
-PYTHON_ALPINE_DOCKER_TAG = $(PYTHON_VERSION)-alpine$(ALPINE_VERSION)
+ALPINE_VERSION=$(if $(tag),$(tag),3.9)
+BASE_ALPINE_DOCKER_LABEL= aws/alpine#TBD: Replace with AWS ECR repo may be?
 
 base.alpine.build: base_patches
 	docker build --no-cache \
     --build-arg ALPINE_VERSION=$(ALPINE_VERSION) \
-    -t $(BASE_ALPINE_DOCKER_LABEL):$(BASE_ALPINE_DOCKER_TAG)\
+    -t $(BASE_ALPINE_DOCKER_LABEL):$(ALPINE_VERSION)\
     -f Dockerfile .
 
-ruby.alpine.build: dockerfile ruby_patches
-	docker build --no-cache \
-    --build-arg BASE_ALPINE_DOCKER_LABEL=$(BASE_ALPINE_DOCKER_LABEL)\
-    --build-arg BASE_ALPINE_DOCKER_TAG=$(BASE_ALPINE_DOCKER_TAG) \
-    -t $(RUBY_ALPINE_DOCKER_LABEL):$(RUBY_ALPINE_DOCKER_TAG) \
-    -f $(ALPINE_VERSION)/ruby/Dockerfile-ruby$(RUBY_VERSION) .
+ruby.alpine.build: ruby_patches build_image
 
-golang.alpine.build: go_patches
-	docker build --no-cache \
-    --build-arg BASE_ALPINE_DOCKER_LABEL=$(BASE_ALPINE_DOCKER_LABEL)\
-    --build-arg BASE_ALPINE_DOCKER_TAG=$(BASE_ALPINE_DOCKER_TAG) \
-    -t $(GOLANG_ALPINE_DOCKER_LABEL):$(GOLANG_ALPINE_DOCKER_TAG) \
-    -f $(ALPINE_VERSION)/golang/Dockerfile-golang$(GOLANG_VERSION) .
+golang.alpine.build: go_patches build_image
 
-python.alpine.build: python_patches
-  docker build --no-cache \
-    --build-arg BASE_ALPINE_DOCKER_LABEL=$(BASE_ALPINE_DOCKER_LABEL)\
-    --build-arg BASE_ALPINE_DOCKER_TAG=$(BASE_ALPINE_DOCKER_TAG) \
-    -t $(GOLANG_ALPINE_DOCKER_LABEL):$(GOLANG_ALPINE_DOCKER_TAG) \
-    -f $(ALPINE_VERSION)/python/Dockerfile-python$(PYTHON_VERSION) .
+python.alpine.build: python_patches build_image
 
-dockerfile:
-	$(call version_set,$(MAKECMDGOALS),$(TAG))
+build_image:
+	. $(BUILD_SCRIPT_PATH) "$(MAKECMDGOALS)" $(TAG)
 
 base_patches: 
-	echo 'No patches found for alpine base image'
+	@echo 'No patches found for alpine base image'
 
 ruby_patches:
-	echo 'No ruby patches found for alpine base image'
+	@echo 'No ruby patches found for alpine base image'
 
 go_patches:
-	echo 'No golang patches found for alpine base image'
+	@echo 'No golang patches found for alpine base image'
 
 python_patches:
-  echo 'No python patches found'
+	@echo 'No python patches found for alpine base image'
