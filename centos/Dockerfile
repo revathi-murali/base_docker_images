@@ -3,12 +3,18 @@ ARG CENTOS_VERSION
 FROM centos:${CENTOS_VERSION}
 
 RUN yum -y update; yum clean all
+
 # Install basic packages
-RUN yum -y install ca-certificates curl jq make
+RUN yum -y install ca-certificates curl jq make which
 
-# Necessary for installing pip
-RUN yum -y install epel-release && yum clean all
-RUN yum -y install python-pip && yum clean all
+# Necessary packages for installing pip
+RUN yum install -y https://centos7.iuscommunity.org/ius-release.rpm \
+    && yum install -y python36u python36u-libs python36u-devel python36u-pip 
 
-# Install awscli for secret manager
-RUN pip install --upgrade pip awscli
+# Install pip
+RUN python3.6 -m pip install pipenv && \
+    pip3.6 install --upgrade pip && \
+    if [ ! -e /usr/bin/pip ]; then ln -s pip3.6 /usr/bin/pip ; fi
+
+# Install awscli for accessing secretsmanager
+RUN pip install awscli
