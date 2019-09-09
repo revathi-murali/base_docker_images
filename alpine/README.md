@@ -5,19 +5,19 @@ This directory contains steps to create alpine base docker images that can be us
 ## For building alpine base image:
 
 ```
-make base.alpine.build tag=<supported alpine version>
+make -s base.alpine.build tag=<supported alpine version>
 
 ```
 
 ## For building ruby-alpine3.9 base image
 
 ```
-cd 3.9 && make ruby.alpine.build tag=<supported ruby version>
+cd 3.9 && make -s ruby.alpine.build tag=<supported ruby version>
 ```
 
 ## For building golang-alpine3.9 base image
 
 ```
-cd 3.9 && make golang.alpine.build tag=<supported golang version> 
+cd 3.9 && make -s golang.alpine.build tag=<supported golang version> 
 ```
 

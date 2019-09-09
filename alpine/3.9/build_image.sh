@@ -2,7 +2,7 @@
 readonly ALPINE_VERSION=3.9
 readonly RUBY_VERSIONS=("2.5.5")
 readonly GOLANG_VERSIONS=("1.12")
-readonly PYTHON_VERSIONS=("3.7")
+readonly PYTHON_VERSIONS=("2.7" "3.7")
 
 readonly BASE_ALPINE_DOCKER_LABEL="aws/alpine"
 readonly RUBY_ALPINE_DOCKER_LABEL="aws/ruby" #TBD
