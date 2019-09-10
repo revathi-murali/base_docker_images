@@ -31,7 +31,7 @@ if [ "$tag" = "" ]; then
   "python") supported_versions="${PYTHON_VERSIONS[@]}"
   ;;
   esac
-  echo "Please specify one of the $lang versions (${supported_versions}) as tag to build $os$os_version based $lang image. Refer README.md"
+  echo "Please specify one of the $lang versions (${supported_versions}) as tag to build $os$os_version based $lang image. Refer README.md under $os directory."
   exit 1
 fi
 

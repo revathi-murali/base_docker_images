@@ -24,7 +24,7 @@ ruby.centos.build: validate_centos_version build_image
 
 validate_centos_version:
 	if [ -z $(CENTOS_VERSION) ]; then \
-		echo "Please provide a valid centos version centos_version=<centos version> to build the image Refer README.md for more details."; \
+		echo "Please provide centos_version=<supported centos version> to build the image. Refer README.md for more details."; \
 		exit 1; \
 	fi;
 

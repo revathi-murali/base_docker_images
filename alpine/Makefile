@@ -13,7 +13,7 @@ base.alpine.build: validate_tag base_patches
 
 validate_tag:
 	if [ -z $(TAG) ]; then \
-		echo "Please provide a valid alpine version tag=<alpine version> to build the image. Refer README.md for more details."; \
+		echo "Please provide a valid alpine version tag=<supported alpine version> to build the image. Refer README.md for more details."; \
 		exit 1; \
 	fi;
 
@@ -28,7 +28,7 @@ python.alpine.build: validate_alpine_version build_image
 
 validate_alpine_version:
 	if [ -z $(ALPINE_VERSION) ]; then \
-		echo "Please provide a valid alpine version alpine_version=<alpine version> to build the image Refer README.md for more details."; \
+		echo "Please provide alpine_version=<supported alpine version> to build the image. Refer README.md for more details."; \
 		exit 1; \
 	fi;
 
