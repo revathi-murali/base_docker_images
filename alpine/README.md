@@ -9,15 +9,19 @@ make -s base.alpine.build tag=<supported alpine version>
 
 ```
 
-## For building ruby-alpine3.9 base image
+## For building ruby-alpine base image
 
 ```
-cd 3.9 && make -s ruby.alpine.build tag=<supported ruby version>
+make -s ruby.alpine.build tag=<supported ruby version> alpine_version=<supported alpine version>
 ```
 
-## For building golang-alpine3.9 base image
+## For building golang-alpine base image
 
 ```
-cd 3.9 && make -s golang.alpine.build tag=<supported golang version> 
+make -s golang.alpine.build tag=<supported golang version> alpine_version=<supported alpine version>
 ```
 
+## For building pythong-alpine base image
+```
+make -s python.alpine.build tag=<supported golang version> alpine_version=<supported alpine version>
+```
