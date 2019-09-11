@@ -4,7 +4,7 @@ FROM alpine:${ALPINE_VERSION}
 
 # Install basic packages
 RUN apk add --update \
-    ca-certificates curl jq make which
+    ca-certificates curl jq make which 
 
 # Necessary packages for installing pip
 RUN apk add --update python3 python3-dev && \

@@ -5,7 +5,7 @@ FROM centos:${CENTOS_VERSION}
 RUN yum -y update; yum clean all
 
 # Install basic packages
-RUN yum install -y ca-certificates curl jq make which
+RUN yum install -y ca-certificates curl jq make which wget
 
 # Necessary packages for installing pip
 RUN yum install -y https://centos7.iuscommunity.org/ius-release.rpm \

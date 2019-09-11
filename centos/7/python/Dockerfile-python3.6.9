@@ -1,0 +1,28 @@
+ARG CENTOS_DOCKER_LABEL
+ARG CENTOS_DOCKER_TAG
+
+FROM ${CENTOS_DOCKER_LABEL}:${CENTOS_DOCKER_TAG}
+
+ENV PYTHON_VERSION "3.6.9"
+
+RUN yum install -y gcc make zlib-devel openssl-devel bzip2-devel \
+    && yum clean all
+
+RUN curl -SLO https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz \
+    && tar xvf Python-${PYTHON_VERSION}.tgz \
+    && cd Python-${PYTHON_VERSION} \
+    && ./configure --prefix=/usr/local \
+    && make \
+    && make altinstall \
+    && cd / \
+    && rm -rf Python-${PYTHON_VERSION}*
+
+# make some useful symlinks that are expected to exist
+RUN cd /usr/local/bin \
+  && ln -s idle3 idle \
+  && ln -s pydoc3.6 pydoc \
+  && ln -s python3.6m python \
+  && ln -s python3.6m-config python-config
+
+CMD ["python3.6m"]
+

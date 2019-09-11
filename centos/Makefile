@@ -22,6 +22,8 @@ base_patches:
 
 ruby.centos.build: validate_centos_version build_image
 
+python.centos.build: validate_centos_version build_image
+
 validate_centos_version:
 	if [ -z $(CENTOS_VERSION) ]; then \
 		echo "Please provide centos_version=<supported centos version> to build the image. Refer README.md for more details."; \
