@@ -26,6 +26,8 @@ golang.alpine.build: validate_alpine_version build_image
 
 python.alpine.build: validate_alpine_version build_image
 
+node.alpine.build: validate_alpine_version build_image
+
 validate_alpine_version:
 	if [ -z $(ALPINE_VERSION) ]; then \
 		echo "Please provide alpine_version=<supported alpine version> to build the image. Refer README.md for more details."; \

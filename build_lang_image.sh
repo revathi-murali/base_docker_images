@@ -5,10 +5,12 @@ readonly CENTOS_DOCKER_LABEL="aws/centos"
 readonly RUBY_DOCKER_LABEL="aws/ruby" #TBD
 readonly GOLANG_DOCKER_LABEL="aws/golang" #TBD
 readonly PYTHON_DOCKER_LABEL="aws/python" #TBD
+readonly NODE_DOCKER_LABEL="aws/node" #TBD
 
 readonly RUBY_VERSIONS=("2.5.5")
 readonly GOLANG_VERSIONS=("1.12")
 readonly PYTHON_VERSIONS=("2.7.16" "3.7.4" "3.6.9")
+readonly NODE_VERSIONS=("10.16.3" "12.10.0")
 
 readonly ALPINE_VERSION="$2"
 readonly CENTOS_VERSION="$2"

@@ -3,7 +3,7 @@ ARG CENTOS_DOCKER_TAG
 
 FROM ${CENTOS_DOCKER_LABEL}:${CENTOS_DOCKER_TAG}
 
-ENV PYTHON_VERSION "3.6.9"
+ENV PYTHON_VERSION "2.7.16"
 
 # ensure local python is preferred over distribution python
 ENV PATH /usr/local/bin:$PATH
@@ -25,10 +25,8 @@ RUN curl -SLO https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHO
 
 # make some useful symlinks that are expected to exist
 RUN cd /usr/local/bin \
-  && ln -s idle3 idle \
-  && ln -s pydoc3.6 pydoc \
-  && ln -s python3.6m python \
-  && ln -s python3.6m-config python-config
+  && ln -s python2.7 python \
+  && ln -s python2.7-config python-config
 
 # if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
 ENV PYTHON_PIP_VERSION 19.2.3
@@ -56,5 +54,4 @@ RUN set -ex; \
     \) -exec rm -rf '{}' +; \
   rm -f get-pip.py
 
-CMD ["python3.6m"]
-
+CMD ["python2.7"]
