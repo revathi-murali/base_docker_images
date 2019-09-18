@@ -1,12 +1,12 @@
 SRCROOT := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 BUILD_SCRIPT_PATH=build_lang_image.sh
-CENTOS_DOCKER_LABEL=aws/centos
-OS=centos
+CENTOS_DOCKER_LABEL?=coupa/centos
+VARIANT=centos
 TAG=$(tag) # Centos version / lang version
 CENTOS_VERSION=$(centos_version) ## Passed when building language images
 
 base.centos.build: validate_tag base_patches
-	docker build --no-cache \
+	docker build \
     --build-arg CENTOS_VERSION=$(TAG) \
     -t $(CENTOS_DOCKER_LABEL):$(TAG)\
     -f Dockerfile .
@@ -24,6 +24,8 @@ ruby.centos.build: validate_centos_version build_image
 
 python.centos.build: validate_centos_version build_image
 
+node.centos.build: validate_centos_version build_image
+
 validate_centos_version:
 	if [ -z $(CENTOS_VERSION) ]; then \
 		echo "Please provide centos_version=<supported centos version> to build the image. Refer README.md for more details."; \
@@ -31,4 +33,4 @@ validate_centos_version:
 	fi;
 
 build_image:
-	cd $(SRCROOT)/.. &&  . $(BUILD_SCRIPT_PATH) $(OS) $(CENTOS_VERSION)  "$(MAKECMDGOALS)" $(TAG)
+	cd $(SRCROOT)/../bin &&  . $(BUILD_SCRIPT_PATH) $(VARIANT) $(CENTOS_VERSION)  "$(MAKECMDGOALS)" $(TAG)

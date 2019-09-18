@@ -1,12 +1,12 @@
 SRCROOT := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 BUILD_SCRIPT_PATH=build_lang_image.sh
-ALPINE_DOCKER_LABEL=aws/alpine
-OS=alpine
+ALPINE_DOCKER_LABEL?=coupa/alpine
+VARIANT=alpine
 TAG=$(tag) # Alpine version / lang version
 ALPINE_VERSION=$(alpine_version) ## Passed when building language images
 
 base.alpine.build: validate_tag base_patches
-	docker build --no-cache \
+	docker build \
     --build-arg ALPINE_VERSION=$(TAG) \
     -t $(ALPINE_DOCKER_LABEL):$(TAG)\
     -f Dockerfile .
@@ -35,4 +35,4 @@ validate_alpine_version:
 	fi;
 
 build_image:
-	cd $(SRCROOT)/.. &&  . $(BUILD_SCRIPT_PATH) $(OS) $(ALPINE_VERSION)  "$(MAKECMDGOALS)" $(TAG)
+	cd $(SRCROOT)/../bin &&  . $(BUILD_SCRIPT_PATH) $(VARIANT) $(ALPINE_VERSION)  "$(MAKECMDGOALS)" $(TAG)
